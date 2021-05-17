@@ -79,7 +79,7 @@ namespace structures
 	template<typename T>
 	inline int DSRoutines::indexInVector(std::vector<T>& vector, const T & item)
 	{
-		int result = 0;
+		/*int result = 0;
 		for (std::vector<T>::iterator it = vector.begin(); it != vector.end(); it++)
 		{
 			if (*it == item)
@@ -90,7 +90,7 @@ namespace structures
 			{
 				result++;
 			}
-		}
+		}*/
 		
 		return -1;
 	}
