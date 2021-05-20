@@ -13,120 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="structures">
-      <UniqueIdentifier>{1542d9f2-debd-4a78-a6ff-133f86779fbc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ds">
-      <UniqueIdentifier>{4e74ade7-0987-4544-9eb3-047d02327c71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\array">
-      <UniqueIdentifier>{f8ea7455-565a-458d-9995-2c8423067c3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\common">
-      <UniqueIdentifier>{0610c93b-51ca-4a09-9e16-67080ee9542f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\list">
-      <UniqueIdentifier>{8cfe02c8-6f5a-48d4-bf6b-494dd5db588f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\table">
-      <UniqueIdentifier>{3687e5c8-d4c3-4965-8e53-2aeb9e137fc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\table\sort">
-      <UniqueIdentifier>{90b6acbd-c29b-41a2-8468-c16ca9018be6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\tree">
-      <UniqueIdentifier>{c4b03b77-36d3-421c-a008-7390cc2af339}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="structures\vector">
-      <UniqueIdentifier>{e53b9916-e8bf-48df-9cb2-96c46f5aac0e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="input files">
       <UniqueIdentifier>{cdd0fef0-3bbe-4b2a-abc0-2d14e525d6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AUS">
+      <UniqueIdentifier>{9b6d7923-2695-4f19-b507-fc1e0db61ee3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="structures\ds_routines.cpp">
-      <Filter>ds</Filter>
+    <ClCompile Include="structures\vector\vector.cpp">
+      <Filter>AUS</Filter>
     </ClCompile>
     <ClCompile Include="structures\structure.cpp">
-      <Filter>structures\common</Filter>
-    </ClCompile>
-    <ClCompile Include="structures\vector\vector.cpp">
-      <Filter>structures\vector</Filter>
+      <Filter>AUS</Filter>
     </ClCompile>
     <ClCompile Include="structures\table\sort\sort.cpp">
-      <Filter>structures\table\sort</Filter>
+      <Filter>AUS</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\ds_routines.cpp">
+      <Filter>AUS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\ds_routines.h">
-      <Filter>ds</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\ds_structure_types.h">
-      <Filter>ds</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\heap_monitor.h">
-      <Filter>ds</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\array\array.h">
-      <Filter>structures\array</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\structure.h">
-      <Filter>structures\common</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\structure_iterator.h">
-      <Filter>structures\common</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\list\array_list.h">
-      <Filter>structures\list</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\list\list.h">
-      <Filter>structures\list</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\binary_search_tree.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\hash_table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\linked_table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\sequence_table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\sorted_sequence_table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\treap.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\table\unsorted_sequence_table.h">
-      <Filter>structures\table</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\tree\binary_tree.h">
-      <Filter>structures\tree</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\tree\k_way_tree.h">
-      <Filter>structures\tree</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\tree\multi_way_tree.h">
-      <Filter>structures\tree</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\tree\tree.h">
-      <Filter>structures\tree</Filter>
-    </ClInclude>
-    <ClInclude Include="structures\vector\vector.h">
-      <Filter>structures\vector</Filter>
     </ClInclude>
     <ClInclude Include="GroundUnit.h">
       <Filter>Header Files</Filter>
@@ -134,48 +47,123 @@
     <ClInclude Include="Enum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\bubble_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="Criteria.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\heap_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="CriteriaGU.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\insert_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="Filter.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\merge_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="FilterGU.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\quick_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="structures\vector\vector.h">
+      <Filter>AUS</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\radix_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="structures\table\unsorted_sequence_table.h">
+      <Filter>AUS</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\select_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="structures\tree\tree.h">
+      <Filter>AUS</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\shell_sort.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="structures\table\treap.h">
+      <Filter>AUS</Filter>
     </ClInclude>
-    <ClInclude Include="structures\table\sort\shuffle.h">
-      <Filter>structures\table\sort</Filter>
+    <ClInclude Include="structures\table\table.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure_iterator.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sorted_sequence_table.h">
+      <Filter>AUS</Filter>
     </ClInclude>
     <ClInclude Include="structures\table\sort\sort.h">
-      <Filter>structures\table\sort</Filter>
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\shuffle.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\shell_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sequence_table.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\select_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\radix_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\quick_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\tree\multi_way_tree.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\merge_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\list\list.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\linked_table.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\tree\k_way_tree.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\insert_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\heap_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\heap_monitor.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\hash_table.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_structure_types.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_routines.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\sort\bubble_sort.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\tree\binary_tree.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\table\binary_search_tree.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\list\array_list.h">
+      <Filter>AUS</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array\array.h">
+      <Filter>AUS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="input_files\1 Obce SR.csv">
-      <Filter>input files</Filter>
-    </None>
-    <None Include="input_files\2 Územné členenie SR.csv">
-      <Filter>input files</Filter>
-    </None>
     <None Include="input_files\3 Zoznam zoskupení bytových jednotiek SR.csv">
       <Filter>input files</Filter>
     </None>
     <None Include="input_files\4 Bytové jednotky SR.csv">
+      <Filter>input files</Filter>
+    </None>
+    <None Include="input_files\2_Územné_členenie_SR.csv">
+      <Filter>input files</Filter>
+    </None>
+    <None Include="input_files\1_Obce_SR.csv">
       <Filter>input files</Filter>
     </None>
   </ItemGroup>

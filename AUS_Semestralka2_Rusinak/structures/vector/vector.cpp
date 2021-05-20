@@ -76,8 +76,6 @@ namespace structures {
 		//DSRoutines::rangeCheckExcept(index, size_, "Invalid index in Vector!");
 		DSRoutines::rangeCheckExcept(index + count, size_ + 1, "Invalid end index!");
 
-
-
 		memcpy(&dest, getBytePointer(index), count);
 		return dest;
 	}
@@ -105,6 +103,6 @@ namespace structures {
 	byte* Vector::getBytePointer(const int index) const
 	{
 		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in Vector!");
-		return (reinterpret_cast<byte*>(memory_) + index);
+		return reinterpret_cast<byte*>(memory_) + index;
 	}
 }

@@ -141,7 +141,7 @@ namespace structures
 
 	template<typename T>
 	inline ArrayList<T>::ArrayList():
-		List(),
+		List<T>(),
 		array_(new Array<T>(4)),
 		size_(0)
 	{
@@ -149,7 +149,7 @@ namespace structures
 
 	template<typename T>
 	inline ArrayList<T>::ArrayList(const ArrayList<T>& other):
-		List(),
+		List<T>(),
 		array_(new Array<T>(*other.array_)),
 		size_(other.size_)
 	{
@@ -191,7 +191,6 @@ namespace structures
 		if (this != &other)
 		{
 			size_ = other.size_;
-			//array_ = *(other.array_); takto nie!!
 			delete array_;
 			array_ = new Array<T>(*other.array_);
 		}
@@ -201,25 +200,24 @@ namespace structures
 	template<typename T>
 	inline T & ArrayList<T>::operator[](const int index)
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in ArrayList!");
+		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in array!");
 		return (*array_)[index];
 	}
 
 	template<typename T>
 	inline const T ArrayList<T>::operator[](const int index) const
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in ArrayList!");
+		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in array!");
 		return (*array_)[index];
 	}
 
 	template<typename T>
 	inline void ArrayList<T>::add(const T & data)
 	{
-		if (array_->size() == size_) 
+		if (array_->size() == size_)
 		{
 			enlarge();
 		}
-
 		(*array_)[static_cast<int>(size_)] = data;
 		size_++;
 	}
@@ -233,14 +231,12 @@ namespace structures
 		}
 		else
 		{
-			DSRoutines::rangeCheckExcept(index, size_, "Invalid index in ArrayList!");
+			DSRoutines::rangeCheckExcept(index, size_, "Invalid index in arrayList!");
 			if (array_->size() == size_)
 			{
 				enlarge();
 			}
-			Array<T>::copy(*array_, static_cast<int>(index),
-				*array_, static_cast<int>(index + 1),
-				static_cast<int>(size_ - index));
+			Array<T>::copy(*array_, static_cast<int>(index), *array_, static_cast<int>(index + 1), static_cast<int>(size_ - index));
 			(*array_)[index] = data;
 			size_++;
 		}
@@ -259,16 +255,14 @@ namespace structures
 			removeAt(index);
 			return true;
 		}
+
 	}
 
 	template<typename T>
 	inline T ArrayList<T>::removeAt(const int index)
 	{
 		T result = (*this)[index];
-		Array<T>::copy(*array_, static_cast<int>(index + 1),
-			*array_, static_cast<int>(index),
-			static_cast<int>(size_ - index - 1));
-
+		Array<T>::copy(*array_, static_cast<int>(index + 1), *array_, static_cast<int>(index), static_cast<int>(size_ - index - 1));
 		size_--;
 		return result;
 	}
@@ -295,15 +289,13 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>* ArrayList<T>::getBeginIterator() const
 	{
-		//TODO 03: ArrayList
-		throw std::exception("ArrayList<T>::getBeginIterator: Not implemented yet.");
+		return new ArrayListIterator(this, 0);
 	}
 
 	template<typename T>
 	inline Iterator<T>* ArrayList<T>::getEndIterator() const
 	{
-		//TODO 03: ArrayList
-		throw std::exception("ArrayList<T>::getEndIterator: Not implemented yet.");
+		return new ArrayListIterator(this, static_cast<int>(size_));
 	}
 
 	template<typename T>
@@ -326,22 +318,20 @@ namespace structures
 	inline ArrayList<T>::ArrayListIterator::~ArrayListIterator()
 	{
 		arrayList_ = nullptr;
-		position_ = 0;
+		position_ = -1;
 	}
 
 	template<typename T>
 	inline Iterator<T>& ArrayList<T>::ArrayListIterator::operator=(const Iterator<T>& other)
 	{
 		position_ = dynamic_cast<const ArrayListIterator&>(other).position_;
-		arrayList_ = dynamic_cast<const ArrayListIterator&>(other).arrayList_;
 		return *this;
 	}
 
 	template<typename T>
 	inline bool ArrayList<T>::ArrayListIterator::operator!=(const Iterator<T>& other)
 	{
-		return position_ != dynamic_cast<const ArrayListIterator&>(other).position_ ||
-			arrayList_ != dynamic_cast<const ArrayListIterator&>(other).arrayList_;
+		return position_ != dynamic_cast<const ArrayListIterator&>(other).position_;
 	}
 
 	template<typename T>

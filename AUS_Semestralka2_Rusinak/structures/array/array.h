@@ -128,7 +128,7 @@ namespace structures
 		{
 			if (size_ != other.size_)
 			{
-				throw std::invalid_argument("Arrays sizes differ!");
+				throw std::invalid_argument("Arrays' sizes differ!");
 			}
 			*vector_ = *(other.vector_);
 		}
@@ -153,13 +153,13 @@ namespace structures
 	template<typename T>
 	const T Array<T>::operator[](const int index) const
 	{
-		return *(reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index))));
+		return *reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index)));
 	}
 
 	template<typename T>
 	inline bool Array<T>::operator==(const Array<T>& other) const
 	{
-		return *vector_ == *(other.vector_);
+		return *vector_ == *other.vector_;
 	}
 
 	template<typename T>
@@ -174,7 +174,7 @@ namespace structures
 	template<typename T>
 	inline int Array<T>::mapFunction(const int index) const
 	{
-		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in Array!");
+		DSRoutines::rangeCheckExcept(index, size_, "Invalid index in array!");
 		return index * sizeof(T);
 	}
 }

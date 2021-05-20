@@ -106,7 +106,7 @@ namespace structures
 	template<typename T>
 	inline MultiWayTreeNode<T>::~MultiWayTreeNode()
 	{
-		for (MultiWayTreeNode<T>* son :  *this->children_)
+		for (MultiWayTreeNode<T>* son : *this->children_)
 		{
 			delete son;
 		}
@@ -152,7 +152,7 @@ namespace structures
 		}
 
 		(*this->children_)[order] = dynamic_cast<MultiWayTreeNode<T>*>(son);
-		
+
 		if (son != nullptr)
 		{
 			son->setParent(this);
@@ -164,7 +164,7 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* MultiWayTreeNode<T>::removeSon(int order)
 	{
-		TreeNode<T>* node  = this->children_->removeAt(order);
+		TreeNode<T>* node = this->children_->removeAt(order);
 		if (node != nullptr)
 		{
 			node->resetParent();
@@ -192,7 +192,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline Structure * MultiWayTree<T>::clone() const
+	inline Structure* MultiWayTree<T>::clone() const
 	{
 		return new MultiWayTree<T>(*this);
 	}

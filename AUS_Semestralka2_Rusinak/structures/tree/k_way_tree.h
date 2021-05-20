@@ -20,7 +20,7 @@ namespace structures
 		/// <param name = "other"> Vrchol k-cestneho stromu, z ktoreho sa prevezmu vlastnosti. </param>
 		/// <remarks> Vytvori sa ako plytka kopia vrcholu other. </remarks>
 		KWayTreeNode(const KWayTreeNode<T, K>& other);
-    
+
 		/// <summary> Destruktor. </summary>
 		~KWayTreeNode();
 
@@ -73,7 +73,7 @@ namespace structures
 	/// <summary> K-cestny strom. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v strome. </typepram>
 	/// <typeparam name = "K"> Kardinalita stromu. </typeparam>
-	template <typename T, int K> 
+	template <typename T, int K>
 	class KWayTree : public Tree<T>
 	{
 	public:
@@ -83,11 +83,11 @@ namespace structures
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> K-cestny strom, z ktoreho sa prevezmu vlastnosti. </param>
 		KWayTree(const KWayTree<T, K>& other);
-  
+
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat udajovej struktury. </summary>
 		/// <returns> Ukazovatel na klon struktury. </returns>
 		Structure* clone() const override;
-    
+
 		/// <summary> Vytvori a vrati instanciu vrcholu k-cestneho stromu. </summary>
 		/// <returns> Vytvorena instancia vrcholu k-cestneho stromu. </returns>
 		TreeNode<T>* createTreeNodeInstance() override;
@@ -95,14 +95,14 @@ namespace structures
 
 
 	template<typename T, int K>
-	inline KWayTreeNode<T, K>::KWayTreeNode(T data):
+	inline KWayTreeNode<T, K>::KWayTreeNode(T data) :
 		TreeNode<T>(data),
 		children_(new Array<KWayTreeNode<T, K>*>(K))
 	{
 	}
 
 	template<typename T, int K>
-	inline KWayTreeNode<T, K>::KWayTreeNode(const KWayTreeNode<T, K>& other):
+	inline KWayTreeNode<T, K>::KWayTreeNode(const KWayTreeNode<T, K>& other) :
 		TreeNode<T>(other),
 		children_(dynamic_cast<Array<KWayTreeNode<T, K>*>*>(other.children_->clone()))
 	{
@@ -199,19 +199,19 @@ namespace structures
 	}
 
 	template<typename T, int K>
-	inline KWayTree<T, K>::KWayTree():
+	inline KWayTree<T, K>::KWayTree() :
 		Tree<T>()
 	{
 	}
 
 	template<typename T, int K>
-	inline KWayTree<T, K>::KWayTree(const KWayTree<T, K>& other):
+	inline KWayTree<T, K>::KWayTree(const KWayTree<T, K>& other) :
 		Tree<T>(other)
 	{
 	}
 
 	template<typename T, int K>
-	inline Structure * KWayTree<T, K>::clone() const
+	inline Structure* KWayTree<T, K>::clone() const
 	{
 		return new KWayTree<T, K>(*this);
 	}

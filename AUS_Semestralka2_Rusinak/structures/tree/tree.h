@@ -23,18 +23,18 @@ namespace structures
 		/// <summary> Test, ci je koren. </summary>
 		/// <returns> true, ak je koren, false inak. </returns>
 		bool isRoot();
-    
+
 		/// <summary> Test, ci je list. </summary>
 		/// <returns> true, ak je list, false inak. </returns>
 		virtual bool isLeaf() = 0;
-  
+
 		/// <summary> Spristupni rodica vrcholu. </summary>
 		/// <returns> Rodic vrcholu. </returns>
 		TreeNode<T>* getParent() const;
 
 		/// <summary> Nastavi rodica na nullptr. </summary>
 		void resetParent();
-    
+
 		/// <summary> Zmeni rodica vrcholu. </summary>
 		/// <param name = "parent"> Novy rodic vrcholu. </param>
 		void setParent(TreeNode<T>* parent);
@@ -44,13 +44,13 @@ namespace structures
 		/// <exception cref=""> Vyhodena, ak je korenom. </exception>  
 		/// <returns> Brat vrcholu. </returns>
 		virtual TreeNode<T>* getBrother(int brothersOrder);
-    
+
 		/// <summary> Spristupni syna vrcholu podla jeho pozicie v tomto vrchole. </summary>
 		/// <param name = "order"> Poradie syna. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak neexistuje syn s takym poradim. </exception>
 		/// <returns> Syn vrcholu. </returns>
 		virtual TreeNode<T>* getSon(int order) const = 0;
-    
+
 		/// <summary> Vlozi noveho syna vrcholu na dane miesto. </summary>
 		/// <param name = "order"> Poradie syna. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak neexistuje syn s takym poradim. </exception>
@@ -59,7 +59,7 @@ namespace structures
 		/// Vsetky smerniky zucastnenych vrcholov budu spravne nastavene. 
 		/// </remarks>
 		virtual void insertSon(TreeNode<T>* son, int order) = 0;
-    
+
 		/// <summary> Nahradi syna vrcholu na danom mieste. </summary>
 		/// <param name = "order"> Poradie syna. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak je poradie neplatne. </exception>
@@ -76,10 +76,10 @@ namespace structures
 		/// Vsetky smerniky zucastnenych vrcholov budu spravne nastavene. 
 		/// </remarks>
 		virtual TreeNode<T>* removeSon(int order) = 0;
-    
+
 		/// <summary> Vrati stupen vrcholu. </summary>
 		/// <returns> Stupen vrcholu. </returns>
-		virtual int degree() = 0;   
+		virtual int degree() = 0;
 
 		/// <summary> Vrati pocet vrcholov v podstrome. </summary>
 		/// <returns> Pocet vrcholov v podstrome. </returns>
@@ -92,27 +92,27 @@ namespace structures
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> Vrchol stromu, z ktoreho sa prevezmu vlastnosti. </param>
 		TreeNode(const TreeNode<T>& other);
-    
+
 		/// <summary> Odkaz na rodica. </summary>
-		TreeNode<T>* parent_;  
+		TreeNode<T>* parent_;
 	};
 
 	/// <summary> Strom. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v strome. </typepram>
-	template <typename T> 
+	template <typename T>
 	class Tree : public Structure, public Iterable<T>
 	{
 	public:
 		/// <summary> Destruktor. </summary>
 		~Tree();
-  
+
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat udajovej struktury. </summary>
 		/// <returns> Ukazovatel na klon struktury. </returns>
 		virtual Structure* clone() const = 0;
-    
+
 		/// <summary> Zisti, ci je struktura prazdna. </summary>
 		/// <returns> true, ak je struktura prazdna, false inak. </returns>
-		bool isEmpty() const override; 
+		bool isEmpty() const override;
 
 		/// <summary> Vrati pocet vrcholov v strome. </summary>
 		/// <returns> Pocet vrcholov v strome. </returns>
@@ -129,14 +129,14 @@ namespace structures
 		/// <param name = "other"> Strom, z ktoreho ma prebrat vlastnosti. </param>
 		/// <returns> Adresa, na ktorej sa tento strom nachadza po priradeni. </returns>
 		virtual Tree<T>& operator=(const Tree<T>& other);
-		
+
 		/// <summary> Vymaze strom. </summary>
 		virtual void clear();
-    
+
 		/// <summary> Spristupni koren stromu. </summary>
 		/// <returns> Koren stromu. </returns>
 		TreeNode<T>* getRoot();
-    
+
 		/// <summary> Nahradi koren stromu. </summary>
 		/// <param name = "newRoot">  Novy koren stromu. </param>
 		/// <returns> Povodny koren stromu. </returns>
@@ -167,7 +167,7 @@ namespace structures
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> Stromu, z ktoreho sa prevezmu vlastnosti. </param>
 		Tree(const Tree<T>& other);
-    
+
 		/// <summary> Koren stromu. </summary>
 		TreeNode<T>* root_;
 
@@ -218,7 +218,7 @@ namespace structures
 			void populatePath(TreeNode<T>* const current);
 		};
 
-		class PostOrderTreeIterator: public TreeIterator
+		class PostOrderTreeIterator : public TreeIterator
 		{
 		public:
 			/// <summary> Konstruktor. </summary>
@@ -312,19 +312,19 @@ namespace structures
 	}
 
 	template<typename T>
-	inline TreeNode<T>::TreeNode(T data):
+	inline TreeNode<T>::TreeNode(T data) :
 		DataItem<T>(data),
 		parent_(nullptr)
 	{
 	}
 
 	template<typename T>
-	inline TreeNode<T>::TreeNode(const TreeNode<T>& other):
+	inline TreeNode<T>::TreeNode(const TreeNode<T>& other) :
 		DataItem<T>(other),
 		parent_(other.parent_)
 	{
 	}
-  
+
 	template<typename T>
 	inline Tree<T>::~Tree()
 	{
@@ -356,22 +356,22 @@ namespace structures
 	}
 
 	template<typename T>
-	inline Tree<T>::Tree():
+	inline Tree<T>::Tree() :
 		Structure(),
 		Iterable<T>(),
-		root_(nullptr)    
+		root_(nullptr)
 	{
 	}
 
 	template<typename T>
-	inline Tree<T>::Tree(const Tree<T>& other):
+	inline Tree<T>::Tree(const Tree<T>& other) :
 		Tree<T>()
 	{
 		*this = other;
 	}
 
 	template<typename T>
-	inline Structure & Tree<T>::operator=(const Structure & other)
+	inline Structure& Tree<T>::operator=(const Structure& other)
 	{
 		if (this != &other)
 		{
@@ -379,7 +379,7 @@ namespace structures
 		}
 		return *this;
 	}
-  
+
 	template<typename T>
 	inline Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 	{
@@ -400,14 +400,14 @@ namespace structures
 		delete root_;
 		root_ = nullptr;
 	}
-  
+
 	template<typename T>
 	inline TreeNode<T>* Tree<T>::getRoot()
 	{
 		return root_;
 	}
-  
-	template<typename T>             
+
+	template<typename T>
 	inline TreeNode<T>* Tree<T>::replaceRoot(TreeNode<T>* newRoot)
 	{
 		TreeNode<T>* oldRoot = root_;
@@ -416,7 +416,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline Tree<T>::TreeIterator::TreeIterator():
+	inline Tree<T>::TreeIterator::TreeIterator() :
 		Iterator<T>(),
 		path_(new std::queue<TreeNode<T>*>())
 	{
@@ -457,7 +457,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline Tree<T>::PreOrderTreeIterator::PreOrderTreeIterator(TreeNode<T>* const startNode):
+	inline Tree<T>::PreOrderTreeIterator::PreOrderTreeIterator(TreeNode<T>* const startNode) :
 		TreeIterator()
 	{
 		populatePath(startNode);

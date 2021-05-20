@@ -129,8 +129,9 @@ namespace structures
 		if (this != &other)
 		{
 			clear();
-			for (TableItem<K, T>* item : *other.list_)
+			for (TableItem<K,T>* item: *other.list_)
 			{
+
 				list_->add(new TableItem<K, T>(*item));
 			}
 		}
@@ -147,7 +148,7 @@ namespace structures
 		}
 		else
 		{
-			throw std::logic_error("Key not found!");
+			throw std::logic_error("Key not found");
 		}
 	}
 
@@ -161,14 +162,15 @@ namespace structures
 		}
 		else
 		{
-			throw std::logic_error("Key not found!");
+			throw std::logic_error("Key not found");
 		}
 	}
 
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::insert(const K & key, const T & data)
 	{
-		//TableItem<K, T>* tableItem = findTableItem(key);
+		/*TableItem<K, T>* tableItem = findTableItem(key);
+		if (tableItem != nullptr)*/
 		if (containsKey(key))
 		{
 			throw std::logic_error("Key already present.");
@@ -195,7 +197,6 @@ namespace structures
 		{
 			throw std::logic_error("Key not found.");
 		}
-		
 	}
 
 	template<typename K, typename T>
@@ -221,7 +222,7 @@ namespace structures
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::clear()
 	{
-		for (auto tableItem : *this)
+		for (auto tableItem: *this)
 		{
 			delete tableItem;
 		}

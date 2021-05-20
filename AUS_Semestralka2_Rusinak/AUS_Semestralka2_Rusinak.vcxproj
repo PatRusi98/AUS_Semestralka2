@@ -146,8 +146,12 @@
     <ClCompile Include="structures\vector\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Criteria.h" />
+    <ClInclude Include="CriteriaGU.h" />
     <ClInclude Include="Enum.h" />
+    <ClInclude Include="Filter.h" />
     <ClInclude Include="GroundUnit.h" />
+    <ClInclude Include="FilterGU.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
@@ -182,8 +186,8 @@
     <ClInclude Include="structures\vector\vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="input_files\1 Obce SR.csv" />
-    <None Include="input_files\2 Územné členenie SR.csv" />
+    <None Include="input_files\1_Obce_SR.csv" />
+    <None Include="input_files\2_Územné_členenie_SR.csv" />
     <None Include="input_files\3 Zoznam zoskupení bytových jednotiek SR.csv" />
     <None Include="input_files\4 Bytové jednotky SR.csv" />
   </ItemGroup>

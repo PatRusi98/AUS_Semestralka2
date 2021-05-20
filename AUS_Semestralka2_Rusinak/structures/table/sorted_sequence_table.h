@@ -67,12 +67,11 @@ namespace structures
 	inline void SortedSequenceTable<K, T>::insert(const K & key, const T & data)
 	{
 		bool found = false;
-		int index = indexOfKey(key, 0, static_cast<int>(size()), found);
-
+		int index = indexOfKey(key, 0, static_cast<int>(this->size()), found);
 		if (!found)
 		{
 			TableItem<K, T>* newItem = new TableItem<K, T>(key, data);
-			list_->insert(newItem, index);
+			this->list_->insert(newItem, index);
 		}
 		else
 		{
@@ -83,34 +82,33 @@ namespace structures
 	template<typename K, typename T>
 	inline TableItem<K, T>* SortedSequenceTable<K, T>::findTableItem(const K & key) const
 	{
-		if (size() == 0)
+		if (this->size() == 0)
 		{
 			return nullptr;
 		}
 		else
 		{
 			bool found = false;
-			int index = indexOfKey(key, 0, static_cast<int>(size()), found);
+			int index = indexOfKey(key, 0, static_cast<int>(this->size()), found);
 
-			return found ? (*list_)[index] : nullptr;
+			return found ? (*this->list_)[index] : nullptr;
 		}
 	}
 
 	template<typename K, typename T>
 	inline int SortedSequenceTable<K, T>::indexOfKey(const K & key, int indexStart, int indexEnd, bool & found) const
 	{
-		int indexSize = static_cast<int>(size());
-
-		if (indexStart == indexSize)
+		int indexSize = static_cast<int>(this->size());
+		if (indexSize == indexStart)
 		{
 			found = false;
 			return indexSize;
 		}
 
 		int pivot = (indexStart + indexEnd) / 2;
-		K keyAtPivot = (*list_)[pivot]->getKey();
+		K keyAtPivot = (*this->list_)[pivot]->getKey();
 
-		if (keyAtPivot == key)
+		if (key == keyAtPivot)
 		{
 			found = true;
 			return pivot;
@@ -135,5 +133,6 @@ namespace structures
 				return indexOfKey(key, indexStart, indexEnd, found);
 			}
 		}
+
 	}
 }

@@ -9,7 +9,7 @@ namespace structures
 	/// <summary> Vrchol binarneho stromu. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
 	template <typename T>
-	class BinaryTreeNode : public KWayTreeNode<T,2>
+	class BinaryTreeNode : public KWayTreeNode<T, 2>
 	{
 	public:
 		/// <summary> Konstruktor. </summary>
@@ -85,7 +85,7 @@ namespace structures
 	/// <summary> Binary strom. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v strome. </typepram>
 	template <typename T>
-	class BinaryTree : public KWayTree<T,2>
+	class BinaryTree : public KWayTree<T, 2>
 	{
 	public:
 		/// <summary> Konstruktor. </summary>
@@ -128,13 +128,13 @@ namespace structures
 	};
 
 	template<typename T>
-	inline BinaryTreeNode<T>::BinaryTreeNode(T data):
+	inline BinaryTreeNode<T>::BinaryTreeNode(T data) :
 		KWayTreeNode<T, 2>(data)
 	{
 	}
 
 	template<typename T>
-	inline BinaryTreeNode<T>::BinaryTreeNode(const BinaryTreeNode<T>& other):
+	inline BinaryTreeNode<T>::BinaryTreeNode(const BinaryTreeNode<T>& other) :
 		KWayTreeNode<T, 2>(other)
 	{
 	}
@@ -212,19 +212,19 @@ namespace structures
 	}
 
 	template<typename T>
-	inline BinaryTree<T>::BinaryTree():
+	inline BinaryTree<T>::BinaryTree() :
 		KWayTree<T, 2>()
 	{
 	}
 
 	template<typename T>
-	inline BinaryTree<T>::BinaryTree(const BinaryTree<T>& other):
+	inline BinaryTree<T>::BinaryTree(const BinaryTree<T>& other) :
 		KWayTree<T, 2>(other)
 	{
 	}
 
 	template<typename T>
-	inline Structure * BinaryTree<T>::clone() const
+	inline Structure* BinaryTree<T>::clone() const
 	{
 		return new BinaryTree<T>(*this);
 	}
@@ -249,7 +249,7 @@ namespace structures
 	}
 
 	template<typename T>
-	inline BinaryTree<T>::InOrderTreeIterator::InOrderTreeIterator(TreeNode<T>* const startNode):
+	inline BinaryTree<T>::InOrderTreeIterator::InOrderTreeIterator(TreeNode<T>* const startNode) :
 		TreeIterator()
 	{
 		populatePath(startNode);
