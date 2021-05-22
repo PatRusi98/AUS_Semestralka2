@@ -44,7 +44,7 @@ namespace structures
 
 		/// <summary> Utriedi tabu¾ku. </summary>
 		/// <param name = "table"> NonortedSequenceTable, ktoru ma utriedit. </param>
-		virtual void sort(UnsortedSequenceTable<K, T>& table) = 0;
+		virtual void sort(UnsortedSequenceTable<K, T>& table, bool ascending) = 0;
 
 		/// <summary> Parametricky konstruktor. </summary>
 		/// <param name = "sortNotifier"> Funkcny objekt urceny na notifikaciu pokroku v triediacom algoritme. </param>

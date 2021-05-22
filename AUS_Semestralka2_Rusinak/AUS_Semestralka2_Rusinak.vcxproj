@@ -184,6 +184,7 @@
     <ClInclude Include="structures\tree\multi_way_tree.h" />
     <ClInclude Include="structures\tree\tree.h" />
     <ClInclude Include="structures\vector\vector.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="input_files\1_Obce_SR.csv" />

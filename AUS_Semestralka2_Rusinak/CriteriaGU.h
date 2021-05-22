@@ -9,13 +9,13 @@ template <typename T>
 class CriteriaGU : public Criteria<GroundUnit*, T>
 {
 public:
-	virtual T rate(GroundUnit* groundUnit) const = 0;
+	virtual T rate(GroundUnit* groundUnit, wstring hgu) = 0;
 };
 
 class CriteriaGUName : public CriteriaGU<wstring>
 {
 public:
-	inline wstring rate(GroundUnit* groundUnit) const override
+	inline wstring rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getName();
 	}
@@ -24,7 +24,7 @@ public:
 class CriteriaGUType : public CriteriaGU<GroundUnitType>
 {
 public:
-	inline GroundUnitType rate(GroundUnit* groundUnit) const override
+	inline GroundUnitType rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getType();
 	}
@@ -33,16 +33,16 @@ public:
 class CriteriaGUAdherence : public CriteriaGU<bool>
 {
 public:
-	inline bool rate(GroundUnit* groundUnit) const override
+	inline bool rate(GroundUnit* groundUnit, wstring hgu) override
 	{
-		return groundUnit->hasParent(groundUnit->getHGU());
+		return groundUnit->getHGU()->getName() == hgu;
 	}
 };
 
 class CriteriaGUPreProductiveCount : public CriteriaGU<int>
 {
 public:
-	inline int rate(GroundUnit* groundUnit) const override
+	inline int rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getPopulation(PopulationType::PREPRODUCTIVE);
 	}
@@ -51,7 +51,7 @@ public:
 class CriteriaGUProductiveCount : public CriteriaGU<int>
 {
 public:
-	inline int rate(GroundUnit* groundUnit) const override
+	inline int rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getPopulation(PopulationType::PRODUCTIVE);
 	}
@@ -60,7 +60,7 @@ public:
 class CriteriaGUPostProductiveCount : public CriteriaGU<int>
 {
 public:
-	inline int rate(GroundUnit* groundUnit) const override
+	inline int rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getPopulation(PopulationType::POSTPRODUCTIVE);
 	}
@@ -69,7 +69,7 @@ public:
 class CriteriaGUPopulationCount : public CriteriaGU<int>
 {
 public:
-	inline int rate(GroundUnit * groundUnit) const override
+	inline int rate(GroundUnit * groundUnit, wstring hgu) override
 	{
 		return	groundUnit->getPopulation(PopulationType::POPULATION);
 	}
@@ -78,7 +78,7 @@ public:
 class CriteriaGUTotalArea : public CriteriaGU<double>
 {
 public:
-	inline double rate(GroundUnit* groundUnit) const override
+	inline double rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getTotalArea();
 	}
@@ -87,7 +87,7 @@ public:
 class CriteriaGUBuiltUpArea : public CriteriaGU<double>
 {
 public:
-	inline double rate(GroundUnit* groundUnit) const override
+	inline double rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return groundUnit->getBuiltUpArea();
 	}
@@ -96,7 +96,7 @@ public:
 class CriteriaGUBuildedUp : public CriteriaGU<double>
 {
 public:
-	inline double rate(GroundUnit* groundUnit) const override
+	inline double rate(GroundUnit* groundUnit, wstring hgu) override
 	{
 		return 100 * (groundUnit->getBuiltUpArea() / groundUnit->getTotalArea());
 	}

@@ -1,8 +1,8 @@
 #pragma once
 #include "Criteria.h"
 
-template <typename O, typename T>
+template <typename O, typename T, typename B>
 class Filter {
 public:
-	virtual bool meetsFilter(O o, T t) = 0;
+	virtual bool meetsFilter(O o, T t, B b) = 0;
 };

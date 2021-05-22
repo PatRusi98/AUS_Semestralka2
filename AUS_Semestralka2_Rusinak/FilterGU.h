@@ -13,19 +13,19 @@ using namespace std;
 using namespace structures;
 
 template <typename T>
-class FilterGU : public Filter<GroundUnit*, T>
+class FilterGU : public Filter<GroundUnit*, T, bool>
 {
 public:
-	virtual bool meetsFilter(GroundUnit* groundUnit, T criteria) = 0;
+	virtual bool meetsFilter(GroundUnit* groundUnit, T criteria, bool undefined) = 0;
 };
 
 class FilterGUName : public FilterGU<wstring>
 {
 public:
-	inline bool meetsFilter(GroundUnit* groundUnit, wstring criteria) override
+	inline bool meetsFilter(GroundUnit* groundUnit, wstring criteria, bool undefined) override
 	{
 		CriteriaGUName* name = new CriteriaGUName();
-		if (name->rate(groundUnit) == criteria)
+		if (name->rate(groundUnit, L"") == criteria)
 		{
 			return true;
 		}
@@ -36,13 +36,17 @@ public:
 class FilterGUType : public FilterGU<GroundUnitType>
 {
 public:
-	inline bool meetsFilter(GroundUnit* groundUnit, GroundUnitType criteria) override
+	inline bool meetsFilter(GroundUnit* groundUnit, GroundUnitType criteria, bool undefined) override
 	{
 		CriteriaGUType* type = new CriteriaGUType();
-		if (type->rate(groundUnit) == criteria)
+		if (undefined)
 		{
 			return true;
 		}
+		else if (type->rate(groundUnit, L"") == criteria)
+		{
+			return true;
+		} 
 		return false;
 	}
 };
@@ -50,10 +54,10 @@ public:
 class FilterGUAdherence : public FilterGU<bool>
 {
 public:
-	inline bool meetsFilter(GroundUnit* groundUnit, bool criteria) override
+	inline bool meetsFilter(GroundUnit* groundUnit, bool criteria, bool undefined) override
 	{
 		CriteriaGUAdherence* adherence = new CriteriaGUAdherence();
-		if (adherence->rate(groundUnit))
+		if (adherence->rate(groundUnit, groundUnit->getHGU()->getName()))
 		{
 			return true;
 		}
@@ -64,10 +68,10 @@ public:
 class FilterGUPopulation : public FilterGU<int>
 {
 public:
-	inline bool meetsFilter(GroundUnit* groundUnit, int criteria) override
+	inline bool meetsFilter(GroundUnit* groundUnit, int criteria, bool undefined) override
 	{
 		CriteriaGUPopulationCount* population = new CriteriaGUPopulationCount();
-		if (population->rate(groundUnit) >= criteria)
+		if (population->rate(groundUnit, L"") >= criteria)
 		{
 			return true;
 		}
@@ -78,10 +82,10 @@ public:
 class FilterGUBuildedUp : public FilterGU<double>
 {
 public:
-	inline bool meetsFilter(GroundUnit* groundUnit, double criteria) override
+	inline bool meetsFilter(GroundUnit* groundUnit, double criteria, bool undefined) override
 	{
 		CriteriaGUBuildedUp* buildedUp = new CriteriaGUBuildedUp();
-		if (buildedUp->rate(groundUnit) >= criteria)
+		if (buildedUp->rate(groundUnit, L"") >= criteria)
 		{
 			return true;
 		}

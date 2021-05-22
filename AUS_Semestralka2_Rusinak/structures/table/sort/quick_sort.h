@@ -15,13 +15,13 @@ namespace structures
 	public:
 		/// <summary> Utriedi tabulku triedenim Quick sort. </summary>
 		/// <param name = "table"> NonortedSequenceTable, ktoru ma utriedit. </param>
-		void sort(UnsortedSequenceTable<K, T>& table) override;
-		int partition(UnsortedSequenceTable<K, T>& table, int min, int max);
-		void quickSort(UnsortedSequenceTable<K, T>& table, int min, int max);
+		void sort(UnsortedSequenceTable<K, T>& table, bool ascending) override;
+		int partition(UnsortedSequenceTable<K, T>& table, int min, int max, bool ascending);
+		void quickSort(UnsortedSequenceTable<K, T>& table, int min, int max, bool ascending);
 	};
 
 	template<typename K, typename T>
-	inline int QuickSort<K, T>::partition(UnsortedSequenceTable<K, T>& table, int min, int max)
+	inline int QuickSort<K, T>::partition(UnsortedSequenceTable<K, T>& table, int min, int max, bool ascending)
 	{
 		/*if (table.size() == 0)
 		{
@@ -33,10 +33,20 @@ namespace structures
 
 		for (int i = min; i < max; i++)
 		{
-			if (table.getItemAtIndex(i).accessData() <= pivot)
+			if (ascending) {
+				if (table.getItemAtIndex(i).accessData() <= pivot)
+				{
+					x++;
+					table.swap(x, i);
+				}
+			}
+			else
 			{
-				x++;
-				table.swap(x, i);
+				if (table.getItemAtIndex(i).accessData() > pivot)
+				{
+					x++;
+					table.swap(x, i);
+				}
 			}
 		}
 		table.swap((x + 1), max);
@@ -44,7 +54,7 @@ namespace structures
 	}
 	
 	template<typename K, typename T>
-	inline void structures::QuickSort<K, T>::quickSort(UnsortedSequenceTable<K, T>& table, int min, int max)
+	inline void structures::QuickSort<K, T>::quickSort(UnsortedSequenceTable<K, T>& table, int min, int max, bool ascending)
 	{
 		/*if (table.size() == 0)
 		{
@@ -53,16 +63,16 @@ namespace structures
 
 		if (min < max)
 		{
-			int pivot = partition(table, min, max);
-			quickSort(table, min, (pivot - 1));
-			quickSort(table, (pivot + 1), max);
+			int pivot = partition(table, min, max, ascending);
+			quickSort(table, min, (pivot - 1), ascending);
+			quickSort(table, (pivot + 1), max, ascending);
 		}
 	}
 
 	template<typename K, typename T>
-	inline void QuickSort<K, T>::sort(UnsortedSequenceTable<K, T>& table)
+	inline void QuickSort<K, T>::sort(UnsortedSequenceTable<K, T>& table, bool ascending)
 	{
-		quickSort(table, 0, (table.size() - 1));
+		quickSort(table, 0, (table.size() - 1), ascending);
 	}
 
 }

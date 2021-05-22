@@ -152,6 +152,9 @@
     <ClInclude Include="structures\array\array.h">
       <Filter>AUS</Filter>
     </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="input_files\3 Zoznam zoskupení bytových jednotiek SR.csv">

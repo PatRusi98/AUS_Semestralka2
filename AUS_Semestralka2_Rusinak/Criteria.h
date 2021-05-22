@@ -3,5 +3,5 @@
 template <typename R, typename T>
 class Criteria {
 public:
-	virtual T rate(R) const = 0;
+	virtual T rate(R, wstring) = 0;
 };
