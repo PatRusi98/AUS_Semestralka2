@@ -4,7 +4,8 @@ enum GroundUnitType
 	TOWN,
 	DISTRICT,
 	REGION,
-	COUNTRY
+	COUNTRY,
+	UNDEFINED
 };
 
 enum PopulationType

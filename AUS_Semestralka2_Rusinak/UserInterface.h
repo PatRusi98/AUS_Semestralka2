@@ -15,6 +15,9 @@
 #include "FilterGU.h"
 #include "Enum.h"
 
+using namespace std;
+using namespace structures;
+
 class UserInterface
 {
 public:
@@ -25,7 +28,9 @@ public:
 	void operation2(CriteriaType type, bool asc);
 	void operation3(FilterType type, GroundUnitType typeGU);
 	void operation4(CriteriaType type, GroundUnitType typeGU, bool asc);
+	void rerun(bool wcinIgnore);
 	void operationSelect();
+
 	GroundUnit* getCountry();
 
 private:
@@ -33,6 +38,7 @@ private:
 	int selectionType = 0;
 	int selection = 0;
 	int selectionDir = 0;
+	wstring selectionAdherence;
 	GroundUnit* country = new GroundUnit(GroundUnitType::COUNTRY, L"Slovensko", NULL);
 	SortedSequenceTable<wstring, GroundUnit*>* nameSort;
 	UnsortedSequenceTable<wstring, int>* populationSort;
@@ -54,20 +60,19 @@ private:
 	wstring nameOp;
 	int populationOp;
 	double buildedUpOp;
+	bool wcinIgnore;
 };
 
 UserInterface::UserInterface(string file2, string file1)
 {
 	input->loadGroundUnit(file2, country);
 	input->loadPopulation(file1, country);
+	wcinIgnore = false;
 }
 
 UserInterface::~UserInterface()
 {
 }
-
-using namespace std;
-using namespace structures;
 
 inline void UserInterface::menu()
 {
@@ -210,7 +215,7 @@ inline void UserInterface::operation2(CriteriaType type, bool asc)
 			{
 				for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 				{
-					populationSort->insert(town->getKey(), populationCriteria->rate(town->accessData(), NULL));
+					populationSort->insert(town->getKey(), populationCriteria->rate(town->accessData(), L""));
 				}
 			}
 		}
@@ -230,7 +235,7 @@ inline void UserInterface::operation2(CriteriaType type, bool asc)
 			{
 				for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 				{
-					buildedUpSort->insert(town->getKey(), buildedUpCriteria->rate(town->accessData(), NULL));
+					buildedUpSort->insert(town->getKey(), buildedUpCriteria->rate(town->accessData(), L""));
 				}
 			}
 		}
@@ -249,7 +254,7 @@ inline void UserInterface::operation2(CriteriaType type, bool asc)
 inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 {
 	bool undefined = false;
-	if (typeGU == GroundUnitType::COUNTRY)
+	if (typeGU == GroundUnitType::UNDEFINED)
 	{
 		undefined = true;
 	}
@@ -261,15 +266,15 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 		filterName = new FilterGUName();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterName->meetsFilter(town->accessData(), nameOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && filterType->meetsFilter(town->accessData(), typeGU, undefined))
+							if (filterName->meetsFilter(town->accessData(), nameOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								wcout << town->accessData()->getName() << ", " << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 								wcout << L"Poèet obyvate¾ov: " << town->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -282,7 +287,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 							}
 						}
 					}
-					if (filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (filterName->meetsFilter(district->accessData(), nameOp, false) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						wcout << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 						wcout << L"Poèet obyvate¾ov: " << district->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -295,7 +300,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 					}
 				}
 			}
-			if (filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (filterName->meetsFilter(region->accessData(), nameOp, false) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				wcout << region->accessData()->getName() << ", " << country->getName() << endl;
 				wcout << L"Poèet obyvate¾ov: " << region->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -313,15 +318,15 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 		filterName = new FilterGUName();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterPopulation->meetsFilter(town->accessData(), populationOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && filterType->meetsFilter(town->accessData(), typeGU, undefined))
+							if (filterPopulation->meetsFilter(town->accessData(), populationOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								wcout << town->accessData()->getName() << ", " << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 								wcout << L"Poèet obyvate¾ov: " << town->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -334,7 +339,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 							}
 						}
 					}
-					if (filterPopulation->meetsFilter(district->accessData(), populationOp, false) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (filterPopulation->meetsFilter(district->accessData(), populationOp, false) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						wcout << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 						wcout << L"Poèet obyvate¾ov: " << district->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -347,7 +352,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 					}
 				}
 			}
-			if (filterPopulation->meetsFilter(region->accessData(), populationOp, false) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (filterPopulation->meetsFilter(region->accessData(), populationOp, false) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				wcout << region->accessData()->getName() << ", " << country->getName() << endl;
 				wcout << L"Poèet obyvate¾ov: " << region->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -365,15 +370,15 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 		filterName = new FilterGUName();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterBuildedUp->meetsFilter(town->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && filterType->meetsFilter(town->accessData(), typeGU, undefined))
+							if (filterBuildedUp->meetsFilter(town->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								wcout << town->accessData()->getName() << ", " << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 								wcout << L"Poèet obyvate¾ov: " << town->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -386,7 +391,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 							}
 						}
 					}
-					if (filterBuildedUp->meetsFilter(district->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (filterBuildedUp->meetsFilter(district->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						wcout << district->accessData()->getName() << ", " << region->accessData()->getName() << ", " << country->getName() << endl;
 						wcout << L"Poèet obyvate¾ov: " << district->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -399,7 +404,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 					}
 				}
 			}
-			if (filterBuildedUp->meetsFilter(region->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (filterBuildedUp->meetsFilter(region->accessData(), buildedUpOp, false) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && (filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				wcout << region->accessData()->getName() << ", " << country->getName() << endl;
 				wcout << L"Poèet obyvate¾ov: " << region->accessData()->getPopulation(PopulationType::POPULATION) << endl;
@@ -420,7 +425,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, bool asc)
 {
 	bool undefined = false;
-	if (typeGU == GroundUnitType::COUNTRY)
+	if (typeGU == GroundUnitType::UNDEFINED)
 	{
 		undefined = true;
 	}
@@ -432,27 +437,27 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 		nameSort = new SortedSequenceTable<wstring, GroundUnit*>();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterType->meetsFilter(town->accessData(), typeGU, undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false))
+							if ((filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								nameSort->insert(town->getKey(), town->accessData());
 							}
 						}
 					}
-					if (filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined)
+					if ((filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						nameSort->insert(district->getKey(), district->accessData());
 					}
 				}
 			}
-			if (filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined)
+			if ((filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				nameSort->insert(region->getKey(), region->accessData());
 			} 
@@ -467,27 +472,27 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 		populationSort = new UnsortedSequenceTable<wstring, int>();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterType->meetsFilter(town->accessData(), typeGU, undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false))
+							if ((filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								populationSort->insert(town->getKey(), populationCriteria->rate(town->accessData(), L""));
 							}
 						}
 					}
-					if (filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined)
+					if ((filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						populationSort->insert(district->getKey(), populationCriteria->rate(district->accessData(), L""));
 					}
 				}
 			}
-			if (filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined)
+			if ((filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				populationSort->insert(region->getKey(), populationCriteria->rate(region->accessData(), L""));
 			}
@@ -504,27 +509,27 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 		buildedUpSort = new UnsortedSequenceTable<wstring, double>();
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
-			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined))
+			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
 			{
 				for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 				{
-					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined))
+					if (!filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined)
 					{
 						for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 						{
-							if (filterType->meetsFilter(town->accessData(), typeGU, undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false))
+							if ((filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
 								buildedUpSort->insert(town->getKey(), buildedUpCriteria->rate(town->accessData(), L""));
 							}
 						}
 					}
-					if (filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined)
+					if ((filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
 						buildedUpSort->insert(district->getKey(), buildedUpCriteria->rate(district->accessData(), L""));
 					}
 				}
 			}
-			if (filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined)
+			if ((filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
 				buildedUpSort->insert(region->getKey(), buildedUpCriteria->rate(region->accessData(), L""));
 			}
@@ -563,12 +568,13 @@ inline void UserInterface::operationSelect()
 		switch (selectionOp)
 		{
 		case 1:
-			nameOp = L" ";
+			nameOp = L"";
 			wcout << L"Zadaj názov / Enter name: ";
 			wcin.ignore();
 			getline(wcin, nameOp);
 			wcout << endl;
 			operation1(FILTERNAME);
+			rerun(true);
 			break;
 		case 2:
 			populationOp = 0;
@@ -579,6 +585,7 @@ inline void UserInterface::operationSelect()
 			} while (populationOp <= 0);
 			wcout << endl;
 			operation1(FILTERPOPULATION);
+			rerun(false);
 			break;
 		case 3:
 			buildedUpOp = 0.0;
@@ -589,6 +596,7 @@ inline void UserInterface::operationSelect()
 			} while (buildedUpOp <= 0.0);
 			wcout << endl;
 			operation1(FILTERBUILDEDUP);
+			rerun(false);
 			break;
 		default:
 			break;
@@ -634,12 +642,15 @@ inline void UserInterface::operationSelect()
 		{
 		case 1:
 			operation2(CriteriaType::NAME, ascending);
+			rerun(false);
 			break;
 		case 2:
 			operation2(CriteriaType::POPULATIONCOUNT, ascending);
+			rerun(false);
 			break;
 		case 3:
 			operation2(CriteriaType::BUILDEDUP, ascending);
+			rerun(false);
 			break;
 		default:
 			break;
@@ -648,18 +659,29 @@ inline void UserInterface::operationSelect()
 	case 3:
 		selectionOp = 0;
 		selectionType = 0;
+		selectionAdherence = L"";
+		nameOp = L"";
 
 		wcout << L"Vyber si typ územnej jednotky: / Choose ground unit type: " << endl;
 		wcout << L"1: Obec / Town" << endl;
 		wcout << L"2: Okres / District" << endl;
 		wcout << L"3: Kraj / Region" << endl;
-		wcout << L"4: Nedefinovaný / Undefined " << endl << endl;
+		wcout << L"4: Štát / Country" << endl;
+		wcout << L"5: Nedefinovaný / Undefined " << endl << endl;
 
 		do
 		{
 			wcout << L"Tvoj vyber / your choice: ";
 			wcin >> selectionType;
-		} while (selectionType > 4 || selectionType <= 0);
+		} while (selectionType > 5 || selectionType <= 0);
+
+		wcout << L"Zadaj príslušnos (vyššiu územnú jednotku): / Enter adherence (higher ground unit)" << endl;
+		wcout << L"(pre nedefinovanú stlaè enter / for undefined press enter)" << endl;
+		wcout << L"Tvoj vyber / your choice: ";
+
+		wcin.ignore();
+		getline(wcin, selectionAdherence);
+		wcout << endl << endl;
 
 		wcout << L"Vyber si filter: / Choose filter: " << endl;
 		wcout << L"1: Názov / Name" << endl;
@@ -672,17 +694,19 @@ inline void UserInterface::operationSelect()
 			wcin >> selectionOp;
 		} while (selectionOp > 3 || selectionOp <= 0);
 
-		wcout << endl;
+		wcout << endl << endl;
 
 		switch (selectionOp)
 		{
 		case 1:
-			nameOp = L" ";
 			wcout << L"Zadaj názov / Enter name: ";
-			wcin.ignore();
-			getline(wcin, nameOp);
+			do
+			{
+				getline(wcin, nameOp);
+			} while (nameOp == L"");
 			wcout << endl;
 			operation3(FILTERNAME, static_cast<GroundUnitType>(selectionType - 1));
+			rerun(true);
 			break;
 		case 2:
 			populationOp = 0;
@@ -693,6 +717,7 @@ inline void UserInterface::operationSelect()
 			} while (populationOp <= 0);
 			wcout << endl;
 			operation3(FILTERPOPULATION, static_cast<GroundUnitType>(selectionType - 1));
+			rerun(false);
 			break;
 		case 3:
 			buildedUpOp = 0.0;
@@ -703,6 +728,7 @@ inline void UserInterface::operationSelect()
 			} while (buildedUpOp <= 0.0);
 			wcout << endl;
 			operation3(FILTERBUILDEDUP, static_cast<GroundUnitType>(selectionType - 1));
+			rerun(false);
 			break;
 		default:
 			break;
@@ -716,13 +742,22 @@ inline void UserInterface::operationSelect()
 		wcout << L"1: Obec / Town" << endl;
 		wcout << L"2: Okres / District" << endl;
 		wcout << L"3: Kraj / Region" << endl; 
-		wcout << L"4: Nedefinovaný / Undefined "<< endl << endl;
+		wcout << L"4: Štát / Country" << endl;
+		wcout << L"5: Nedefinovaný / Undefined "<< endl << endl;
 
 		do
 		{
 			wcout << L"Tvoj vyber / your choice: ";
 			wcin >> selectionType;
-		} while (selectionType > 4 || selectionType <= 0);
+		} while (selectionType > 5 || selectionType <= 0);
+
+		wcout << L"Zadaj príslušnos (vyššiu územnú jednotku): / Enter adherence (higher ground unit)" << endl;
+		wcout << L"(pre nedefinovanú stlaè enter / for undefined press enter)" << endl;
+		wcout << L"Tvoj vyber / your choice: ";
+
+		wcin.ignore();
+		getline(wcin, selectionAdherence);
+		wcout << endl << endl;
 
 		wcout << L"Vyber si kritérium: / Choose criteria: " << endl;
 		wcout << L"1: Názov / Name" << endl;
@@ -734,6 +769,8 @@ inline void UserInterface::operationSelect()
 			wcout << L"Tvoj vyber / your choice: ";
 			wcin >> selectionOp;
 		} while (selectionOp > 3 || selectionOp <= 0);
+
+		wcout << endl;
 
 		wcout << L"1: Vzostupne / Ascending" << endl;
 		wcout << L"2: Zostupne / Descending" << endl;
@@ -760,12 +797,15 @@ inline void UserInterface::operationSelect()
 		{
 		case 1:
 			operation4(CriteriaType::NAME, static_cast<GroundUnitType>(selectionType - 1), ascending);
+			rerun(true);
 			break;
 		case 2:
 			operation4(CriteriaType::POPULATIONCOUNT, static_cast<GroundUnitType>(selectionType - 1), ascending);
+			rerun(true);
 			break;
 		case 3:
 			operation4(CriteriaType::BUILDEDUP, static_cast<GroundUnitType>(selectionType - 1), ascending);
+			rerun(true);
 			break;
 		default:
 			break;
@@ -789,6 +829,33 @@ inline void UserInterface::operationSelect()
 		break;
 	default:
 		break;
+	}
+}
+
+inline void UserInterface::rerun(bool wcinIgnore)
+{
+	wcout << L"\nChceš pokraèova? / Do you want to continue? (y/n): ";
+	wstring again;
+	do
+	{
+		if (!wcinIgnore)
+		{
+			wcin.ignore();
+		}
+		getline(wcin, again);
+		if (again == L"y" || again == L"n")
+		{
+			break;
+		}
+	} while (true);
+
+	if (again == L"y")
+	{
+		menu();
+	}
+	else
+	{
+		exit(0);
 	}
 }
 
