@@ -187,6 +187,7 @@
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="input_files\1_Obce_SR.csv" />
     <None Include="input_files\2_Územné_členenie_SR.csv" />
     <None Include="input_files\3 Zoznam zoskupení bytových jednotiek SR.csv" />

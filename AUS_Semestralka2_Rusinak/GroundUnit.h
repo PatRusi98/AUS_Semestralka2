@@ -46,6 +46,20 @@ GroundUnit::GroundUnit(GroundUnitType type, wstring name, GroundUnit* higherGU)
 
 GroundUnit::~GroundUnit()
 {
+	/*delete higherGroundUnit;
+	higherGroundUnit = nullptr;*/
+	//delete LGUnits;
+	//LGUnits = nullptr;
+	for(TableItem<wstring, GroundUnit*>* item : *LGUnits)
+	{
+		if (item->accessData() != nullptr)
+		{
+			delete item->accessData();
+		}
+	}
+
+	delete LGUnits;
+	LGUnits = nullptr;
 
 }
 
@@ -125,5 +139,9 @@ inline bool GroundUnit::hasParent(GroundUnit* parent)
 		}
 		myParent = myParent->getHGU();
 	}
+
+	delete myParent;
+	myParent = nullptr;
+
 	return false;
 }

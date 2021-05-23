@@ -25,12 +25,16 @@ public:
 	inline bool meetsFilter(GroundUnit* groundUnit, wstring criteria, bool undefined) override
 	{
 		CriteriaGUName* name = new CriteriaGUName();
+
 		if (name->rate(groundUnit, L"") == criteria)
 		{
 			return true;
 		}
 		return false;
-	};
+
+		delete name;
+		name = nullptr;
+	}
 };
 
 class FilterGUType : public FilterGU<GroundUnitType>
@@ -48,6 +52,9 @@ public:
 			return true;
 		} 
 		return false;
+
+		delete type;
+		type = nullptr;
 	}
 };
 
@@ -62,6 +69,9 @@ public:
 			return true;
 		}
 		return false;
+
+		delete adherence;
+		adherence = nullptr;
 	}
 };
 
@@ -76,6 +86,9 @@ public:
 			return true;
 		}
 		return false;
+
+		delete population;
+		population = nullptr;
 	}
 };
 
@@ -90,5 +103,8 @@ public:
 			return true;
 		}
 		return false;
+
+		delete buildedUp;
+		buildedUp = nullptr;
 	}
 };

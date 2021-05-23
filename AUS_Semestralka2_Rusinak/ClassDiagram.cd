@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Criteria&lt;R, T&gt;" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Criteria.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGU&lt;T&gt;" Collapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUName" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUType" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUAdherence" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUPreProductiveCount" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUProductiveCount" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUPostProductiveCount" Collapsed="true">
+    <Position X="19.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUPopulationCount" Collapsed="true">
+    <Position X="21.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUTotalArea" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUBuiltUpArea" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CriteriaGUBuildedUp" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CriteriaGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter&lt;O, T, B&gt;" Collapsed="true">
+    <Position X="5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroundUnit" Collapsed="true">
+    <Position X="37.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEIIAAAAABAAgIAAAIAQAAgAwAFQAACAAgGIAAAAgA=</HashCode>
+      <FileName>GroundUnit.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGU&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGUName" Collapsed="true">
+    <Position X="0.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGUType" Collapsed="true">
+    <Position X="2.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGUAdherence" Collapsed="true">
+    <Position X="5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGUPopulation" Collapsed="true">
+    <Position X="7.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FilterGUBuildedUp" Collapsed="true">
+    <Position X="9.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FilterGU.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Input" Collapsed="true">
+    <Position X="38.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAABAAAAAAAAEBAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserInterface" Collapsed="true">
+    <Position X="38.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>mBYAAAAAAIAAAkAICACABAgIAAEAEFADAABAAAAgAAA=</HashCode>
+      <FileName>UserInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Array&lt;T&gt;" Collapsed="true">
+    <Position X="10.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIAAAQhAAAEAAAJAAAAgEIAAAAA=</HashCode>
+      <FileName>structures\array\array.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::DSRoutines" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAACAAABEAAAAAAAAAACAAAQAAAAAAAAI=</HashCode>
+      <FileName>structures\ds_routines.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::ArrayList&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAgAABAAAAACYgAAABAQAEAAAEAAgAgEAECAAA=</HashCode>
+      <FileName>structures\list\array_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::List&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAABAAAAACYAAAAAAQAEAAAEAAAAgEAECAAI=</HashCode>
+      <FileName>structures\list\list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::DataItem&lt;T&gt;" Collapsed="true">
+    <Position X="18.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAABAAAAAAAAAAAAAAAAAAIAAAAAAAAAE=</HashCode>
+      <FileName>structures\structure.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Structure" Collapsed="true">
+    <Position X="11.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAIAAAAAEAAAAAAAAAAAgEAAAQAA=</HashCode>
+      <FileName>structures\structure.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::StructureIterator&lt;T&gt;" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAQAAIAQAAAAgAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>structures\structure_iterator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Iterator&lt;T&gt;" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAQAAAAQAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>structures\structure_iterator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Iterable&lt;T&gt;" Collapsed="true">
+    <Position X="3.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAQAAAAAQAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\structure_iterator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::BinarySearchTree&lt;K, T&gt;" Collapsed="true">
+    <Position X="5.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAQAAABAQAAEAYAAAABCAAEAAQEgAAQgEAAAAQA=</HashCode>
+      <FileName>structures\table\binary_search_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::HashTable&lt;K, T&gt;" Collapsed="true">
+    <Position X="14" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAIQgAABAAAAEAYAAAARCAAEAAAMAAAAgEAAAAAA=</HashCode>
+      <FileName>structures\table\hash_table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::LinkedTable&lt;K, T&gt;" Collapsed="true">
+    <Position X="16.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>structures\table\linked_table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::SequenceTable&lt;K, T&gt;" Collapsed="true">
+    <Position X="18.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAIBAAAAEAYABAAACAAEAAAEAAAAkEBAAAAA=</HashCode>
+      <FileName>structures\table\sequence_table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::SortedSequenceTable&lt;K, T&gt;" Collapsed="true">
+    <Position X="20.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIBAAAAAAAAAAAAAAAAAACQAAAAAEAAAAAA=</HashCode>
+      <FileName>structures\table\sorted_sequence_table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::BubbleSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\bubble_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::HeapSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="19" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\heap_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::InsertSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="1" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\insert_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::MergeSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\merge_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::QuickSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\quick_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::RadixSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="7.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\radix_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::SelectSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\select_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::ShellSort&lt;K, T&gt;" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\shell_sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Shuffle&lt;K, T&gt;" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\sort\shuffle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::SortNotifier" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAABAAAAAAgQgAAAAA=</HashCode>
+      <FileName>structures\table\sort\sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Sort&lt;K, T&gt;" Collapsed="true">
+    <Position X="10" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAEAAQAAAAEAAAAAAAAAEIQAAAAAA=</HashCode>
+      <FileName>structures\table\sort\sort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::TableItem&lt;K, T&gt;" Collapsed="true">
+    <Position X="16.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABIAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Table&lt;K, T&gt;" Collapsed="true">
+    <Position X="13.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAABAAAAEAYAAQAACAAEAAAEAAAAgEAAAAAA=</HashCode>
+      <FileName>structures\table\table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::TreapItem&lt;K, T&gt;" Collapsed="true">
+    <Position X="16.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAQAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\table\treap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Treap&lt;K, T&gt;" Collapsed="true">
+    <Position X="5.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAABIAAAEEAAAAABABAAQAAAAAAAgEgAAAAA=</HashCode>
+      <FileName>structures\table\treap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::UnsortedSequenceTable&lt;K, T&gt;" Collapsed="true">
+    <Position X="18.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAQAAEIAAAAA=</HashCode>
+      <FileName>structures\table\unsorted_sequence_table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::BinaryTreeNode&lt;T&gt;" Collapsed="true">
+    <Position X="21" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAAAAAIgABAAAAAAAhAAAQAAAAAAEAAAAAgAgZAAAA=</HashCode>
+      <FileName>structures\tree\binary_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::BinaryTree&lt;T&gt;" Collapsed="true">
+    <Position X="13.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAgAAQAAAAAAAAAAAAEAAAAAEAAAAAA=</HashCode>
+      <FileName>structures\tree\binary_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::KWayTreeNode&lt;T, K&gt;" Collapsed="true">
+    <Position X="21" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAAAAAAABQEAAEAAAAAABAQEAAAAAEAAAAAQAA=</HashCode>
+      <FileName>structures\tree\k_way_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::KWayTree&lt;T, K&gt;" Collapsed="true">
+    <Position X="13.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgCAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>structures\tree\k_way_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::MultiWayTreeNode&lt;T&gt;" Collapsed="true">
+    <Position X="18.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAQAAAMAAAAAABAQEAAAAAUAAAAAQAA=</HashCode>
+      <FileName>structures\tree\multi_way_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::MultiWayTree&lt;T&gt;" Collapsed="true">
+    <Position X="11.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>structures\tree\multi_way_tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::TreeNode&lt;T&gt;" Collapsed="true">
+    <Position X="19.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAAgAAAAAAgAAAAAAEAARgAABAREIAAAAEAAABAQAA=</HashCode>
+      <FileName>structures\tree\tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Tree&lt;T&gt;" Collapsed="true">
+    <Position X="11.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAiAEAAAAYAAAAAAAAAAABEAAAAgUAAAQAA=</HashCode>
+      <FileName>structures\tree\tree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::Vector" Collapsed="true">
+    <Position X="28.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAQAAIAIAQBAAAEAAAIAAEBgEAAAAAA=</HashCode>
+      <FileName>structures\vector\vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="structures::byte" Collapsed="true">
+    <Position X="28.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>structures\ds_structure_types.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="GroundUnitType" Collapsed="true">
+    <Position X="36" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAggAAAAAAAAAAAAgIAAAEAAAAAAAA=</HashCode>
+      <FileName>Enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PopulationType" Collapsed="true">
+    <Position X="36" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACACAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CriteriaType" Collapsed="true">
+    <Position X="36" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAEAABAAAAAAAAAAACAACAAACAAEAAAAAAEEA=</HashCode>
+      <FileName>Enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FilterType" Collapsed="true">
+    <Position X="36" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAYAAAAAAAAAAAAAAAAAAAQAgAA=</HashCode>
+      <FileName>Enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="structures::StructureADT" Collapsed="true">
+    <Position X="34.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBAAAAAAAAACAAAAAAAAAAMIAAQAAAACAAAAEAAEAA=</HashCode>
+      <FileName>structures\ds_structure_types.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="structures::StructureADS" Collapsed="true">
+    <Position X="32.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABBUAGAIAAAGAAFAAQ2AAAAQIQAAAAGACAAgIQCACAQ=</HashCode>
+      <FileName>structures\ds_structure_types.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

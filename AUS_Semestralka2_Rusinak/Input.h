@@ -35,7 +35,6 @@ Input::Input()
 
 inline Input::~Input()
 {
-
 }
 
 inline void Input::loadGroundUnit(const string& fileName, GroundUnit* country)
@@ -86,6 +85,13 @@ inline void Input::loadGroundUnit(const string& fileName, GroundUnit* country)
 
 		tempTown = new GroundUnit(GroundUnitType::TOWN, town, tempDistrict);
 		tempDistrict->setLGU(tempTown);
+
+		/*delete tempRegion;
+		tempRegion = nullptr;
+		delete tempDistrict;
+		tempDistrict = nullptr;
+		delete tempTown;
+		tempTown = nullptr;*/
 	}
 
 	loader.close();
@@ -126,7 +132,6 @@ inline void Input::loadPopulation(const string& fileName, GroundUnit* country)
 		builtUpArea = stoi(trash);
 		bool found = false;
 
-		//wcout << town << endl;
 		
 		for (TableItem<wstring, GroundUnit*>* aregion : *country->getLGU())
 		{
@@ -136,7 +141,6 @@ inline void Input::loadPopulation(const string& fileName, GroundUnit* country)
 				{
 					if (atown->accessData()->getName() == town)
 					{
-						//wcout << town << endl;
 						atown->accessData()->setData(preProductive, productive, postProductive, totalArea, builtUpArea);
 						adistinct->accessData()->setData(preProductive, productive, postProductive, totalArea, builtUpArea);
 						aregion->accessData()->setData(preProductive, productive, postProductive, totalArea, builtUpArea);

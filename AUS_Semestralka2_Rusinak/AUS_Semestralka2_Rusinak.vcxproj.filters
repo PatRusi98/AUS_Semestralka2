@@ -169,5 +169,6 @@
     <None Include="input_files\1_Obce_SR.csv">
       <Filter>input files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

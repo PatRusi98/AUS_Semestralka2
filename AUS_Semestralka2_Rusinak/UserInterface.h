@@ -14,6 +14,7 @@
 #include "Filter.h"
 #include "FilterGU.h"
 #include "Enum.h"
+#include <cstdlib>
 
 using namespace std;
 using namespace structures;
@@ -34,26 +35,12 @@ public:
 	GroundUnit* getCountry();
 
 private:
-	Input* input = new Input();
-	int selectionType = 0;
-	int selection = 0;
-	int selectionDir = 0;
+	Input* input;
+	int selectionType;
+	int selection;
+	int selectionDir;
 	wstring selectionAdherence;
-	GroundUnit* country = new GroundUnit(GroundUnitType::COUNTRY, L"Slovensko", NULL);
-	SortedSequenceTable<wstring, GroundUnit*>* nameSort;
-	UnsortedSequenceTable<wstring, int>* populationSort;
-	UnsortedSequenceTable<wstring, double>* buildedUpSort;
-	CriteriaGUName* nameCriteria;
-	CriteriaGUAdherence* adherenceCriteria;
-	CriteriaGUPopulationCount* populationCriteria;
-	CriteriaGUBuildedUp* buildedUpCriteria;
-	QuickSort<wstring, int>* sortPopulation;
-	QuickSort<wstring, double>* sortBuildedUp;
-	FilterGUBuildedUp* filterBuildedUp = new FilterGUBuildedUp();
-	FilterGUPopulation* filterPopulation = new FilterGUPopulation();
-	FilterGUName* filterName = new FilterGUName();
-	FilterGUType* filterType = new FilterGUType();
-	FilterGUAdherence* filterAdherence = new FilterGUAdherence();
+	GroundUnit* country;
 	bool foundOp;
 	bool ascending;
 	int selectionOp;
@@ -65,13 +52,29 @@ private:
 
 UserInterface::UserInterface(string file2, string file1)
 {
+	input = new Input();
+	country = new GroundUnit(GroundUnitType::COUNTRY, L"Slovensko", NULL);
 	input->loadGroundUnit(file2, country);
 	input->loadPopulation(file1, country);
+	selectionType = 0;
+	selection = 0;
+	selectionDir = 0;
+	wcinIgnore = false;
+	foundOp = false;
+	ascending = false;
+	selectionOp = 0;
+	nameOp = L"";
+	populationOp = 0;
+	buildedUpOp = 0.0;
 	wcinIgnore = false;
 }
 
 UserInterface::~UserInterface()
 {
+	delete input;
+	input = nullptr;
+	delete country;
+	country = nullptr;
 }
 
 inline void UserInterface::menu()
@@ -106,11 +109,17 @@ inline void UserInterface::menu()
 
 inline void UserInterface::operation1(FilterType type)
 {
+	CriteriaGUName* nameCriteria = new CriteriaGUName();
+	FilterGUName* filterName = new FilterGUName();
+	CriteriaGUPopulationCount* populationCriteria = new CriteriaGUPopulationCount();
+	FilterGUPopulation* filterPopulation = new FilterGUPopulation();
+	CriteriaGUBuildedUp* buildedUpCriteria = new CriteriaGUBuildedUp();
+	FilterGUBuildedUp* filterBuildedUp = new FilterGUBuildedUp();
+
 	switch (type)
 	{
 	case FILTERNAME:
-		nameCriteria = new CriteriaGUName();
-		filterName = new FilterGUName();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
@@ -131,10 +140,11 @@ inline void UserInterface::operation1(FilterType type)
 				}
 			}
 		}
+
 		break;
+
 	case FILTERPOPULATION:
-		populationCriteria = new CriteriaGUPopulationCount();
-		filterPopulation = new FilterGUPopulation();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
@@ -155,10 +165,11 @@ inline void UserInterface::operation1(FilterType type)
 				}
 			}
 		}
+
 		break;
+
 	case FILTERBUILDEDUP:
-		buildedUpCriteria = new CriteriaGUBuildedUp();
-		filterBuildedUp = new FilterGUBuildedUp();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
@@ -179,36 +190,66 @@ inline void UserInterface::operation1(FilterType type)
 				}
 			}
 		}
+
 		break;
+
 	default:
 		break;
 	}
+
+	delete nameCriteria;
+	nameCriteria = nullptr;
+	delete filterName;
+	filterName = nullptr;
+	delete populationCriteria;
+	populationCriteria = nullptr;
+	delete filterPopulation;
+	filterPopulation = nullptr;
+	delete buildedUpCriteria;
+	buildedUpCriteria = nullptr;
+	delete filterBuildedUp;
+	filterBuildedUp = nullptr;
 }
 
 inline void UserInterface::operation2(CriteriaType type, bool asc)
 {
+	CriteriaGUName* nameCriteria = new CriteriaGUName();
+	UnsortedSequenceTable<wstring, wstring>* nameSort = new UnsortedSequenceTable<wstring, wstring>();
+	CriteriaGUPopulationCount* populationCriteria = new CriteriaGUPopulationCount();
+	UnsortedSequenceTable<wstring, int>* populationSort = new UnsortedSequenceTable<wstring, int>();
+	CriteriaGUBuildedUp* buildedUpCriteria = new CriteriaGUBuildedUp();
+	UnsortedSequenceTable<wstring, double>* buildedUpSort = new UnsortedSequenceTable<wstring, double>();
+	QuickSort<wstring, wstring>* sortName = new QuickSort<wstring, wstring>();
+	QuickSort<wstring, int>* sortPopulation = new QuickSort<wstring, int>();
+	QuickSort<wstring, double>* sortBuildedUp = new QuickSort<wstring, double>();
+
+
 	switch (type)
 	{
 	case NAME:
-		nameSort = new SortedSequenceTable<wstring, GroundUnit*>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
 			{
 				for (TableItem<wstring, GroundUnit*>* town : *district->accessData()->getLGU())
 				{
-					nameSort->insert(town->getKey(), town->accessData());
+					nameSort->insert(town->getKey(), nameCriteria->rate(town->accessData(), L""));
 				}
 			}
 		}
-		for (TableItem<wstring, GroundUnit*>* groundUnit : *nameSort)
+
+		sortName->sort(*nameSort, asc);
+
+		for (TableItem<wstring, wstring>* groundUnit : *nameSort)
 		{
-			wcout << groundUnit->getKey() << " : " << groundUnit->accessData()->getName() << endl;
+			wcout << groundUnit->getKey() << " : " << groundUnit->accessData() << endl;
 		}
+
 		break;
+
 	case POPULATIONCOUNT:
-		populationCriteria = new CriteriaGUPopulationCount();
-		populationSort = new UnsortedSequenceTable<wstring, int>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
@@ -219,16 +260,18 @@ inline void UserInterface::operation2(CriteriaType type, bool asc)
 				}
 			}
 		}
-		sortPopulation = new QuickSort<wstring, int>();
+
 		sortPopulation->sort(*populationSort, asc);
+
 		for (TableItem<wstring, int>* groundUnit : *populationSort)
 		{
 			wcout << groundUnit->getKey() << ": " << groundUnit->accessData() << endl;
 		}
+
 		break;
+
 	case BUILDEDUP:
-		buildedUpCriteria = new CriteriaGUBuildedUp();
-		buildedUpSort = new UnsortedSequenceTable<wstring, double>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			for (TableItem<wstring, GroundUnit*>* district : *region->accessData()->getLGU())
@@ -239,20 +282,72 @@ inline void UserInterface::operation2(CriteriaType type, bool asc)
 				}
 			}
 		}
-		sortBuildedUp = new QuickSort<wstring, double>();
+
 		sortBuildedUp->sort(*buildedUpSort, asc);
+
 		for (TableItem<wstring, double>* groundUnit : *buildedUpSort)
 		{
 			wcout << groundUnit->getKey() << ": " << groundUnit->accessData() << endl;
 		}
+
 		break;
+
 	default:
 		break;
 	}
+
+	/*for (TableItem<wstring, GroundUnit*>* groundUnit : *nameSort)
+	{
+		if (groundUnit->accessData() != nullptr)
+		{
+			delete groundUnit->accessData();
+			groundUnit = nullptr;
+		}
+	}
+
+	for (TableItem<wstring, int>* groundUnit : *populationSort)
+	{
+		if (groundUnit != nullptr)
+		{
+			delete groundUnit;
+			groundUnit = nullptr;
+		}
+	}
+
+	for (TableItem<wstring, double>* groundUnit : *buildedUpSort)
+	{
+		if (groundUnit != nullptr)
+		{
+			delete groundUnit;
+			groundUnit = nullptr;
+		}
+	}*/
+
+	delete nameSort;
+	nameSort = nullptr;
+	delete populationCriteria;
+	populationCriteria = nullptr;
+	delete populationSort;
+	populationSort = nullptr;
+	delete sortPopulation;
+	sortPopulation = nullptr;
+	delete buildedUpCriteria;
+	buildedUpCriteria = nullptr;
+	delete buildedUpSort;
+	buildedUpSort = nullptr;
+	delete sortBuildedUp;
+	sortBuildedUp = nullptr;
 }
 
 inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 {
+	FilterGUName* filterName = new FilterGUName();
+	FilterGUType* filterType = new FilterGUType();
+	FilterGUAdherence* filterAdherence = new FilterGUAdherence();
+	CriteriaGUAdherence* adherenceCriteria = new CriteriaGUAdherence();
+	FilterGUPopulation* filterPopulation = new FilterGUPopulation();
+	FilterGUBuildedUp* filterBuildedUp = new FilterGUBuildedUp();
+
 	bool undefined = false;
 	if (typeGU == GroundUnitType::UNDEFINED)
 	{
@@ -262,8 +357,7 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 	switch (type)
 	{
 	case FILTERNAME:
-		nameCriteria = new CriteriaGUName();
-		filterName = new FilterGUName();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -312,10 +406,11 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 				wcout << L"Zastavaná plocha: " << region->accessData()->getBuiltUpArea() << L" m2" << endl << endl;
 			}
 		}
+
 		break;
+
 	case FILTERPOPULATION:
-		nameCriteria = new CriteriaGUName();
-		filterName = new FilterGUName();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -364,10 +459,11 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 				wcout << L"Zastavaná plocha: " << region->accessData()->getBuiltUpArea() << L" m2" << endl << endl;
 			}
 		}
+
 		break;
+
 	case FILTERBUILDEDUP:
-		nameCriteria = new CriteriaGUName();
-		filterName = new FilterGUName();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -416,25 +512,52 @@ inline void UserInterface::operation3(FilterType type, GroundUnitType typeGU)
 				wcout << L"Zastavaná plocha: " << region->accessData()->getBuiltUpArea() << L" m2" << endl << endl;
 			}
 		}
+
 		break;
+
 	default:
 		break;
 	}
+
+	delete filterName;
+	filterName = nullptr;
+	delete filterType;
+	filterType = nullptr;
+	delete filterAdherence;
+	filterAdherence = nullptr;
+	delete adherenceCriteria;
+	adherenceCriteria = nullptr;
+	delete filterPopulation;
+	filterPopulation = nullptr;
+	delete filterBuildedUp;
+	filterBuildedUp = nullptr;
 }
 
 inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, bool asc)
 {
+	CriteriaGUName* nameCriteria = new CriteriaGUName();
+	UnsortedSequenceTable<wstring, wstring>* nameSort = new UnsortedSequenceTable<wstring, wstring>();
+	CriteriaGUPopulationCount* populationCriteria = new CriteriaGUPopulationCount();
+	UnsortedSequenceTable<wstring, int>* populationSort = new UnsortedSequenceTable<wstring, int>();
+	CriteriaGUBuildedUp* buildedUpCriteria = new CriteriaGUBuildedUp();
+	UnsortedSequenceTable<wstring, double>* buildedUpSort = new UnsortedSequenceTable<wstring, double>();
+	FilterGUType* filterType = new FilterGUType();
+	FilterGUAdherence* filterAdherence = new FilterGUAdherence();
+	CriteriaGUAdherence* adherenceCriteria = new CriteriaGUAdherence();
+	QuickSort<wstring, wstring>* sortName = new QuickSort<wstring, wstring>();
+	QuickSort<wstring, int>* sortPopulation = new QuickSort<wstring, int>();
+	QuickSort<wstring, double>* sortBuildedUp = new QuickSort<wstring, double>();
+
 	bool undefined = false;
 	if (typeGU == GroundUnitType::UNDEFINED)
 	{
 		undefined = true;
 	}
 
-	adherenceCriteria = new CriteriaGUAdherence();
 	switch (type)
 	{
 	case NAME:
-		nameSort = new SortedSequenceTable<wstring, GroundUnit*>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -447,29 +570,33 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 						{
 							if ((filterType->meetsFilter(town->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(town->accessData(), adherenceCriteria, false) && (town->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 							{
-								nameSort->insert(town->getKey(), town->accessData());
+								nameSort->insert(town->getKey(), nameCriteria->rate(town->accessData(), L""));
 							}
 						}
 					}
 					if ((filterType->meetsFilter(district->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(district->accessData(), adherenceCriteria, false) && !undefined && (district->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 					{
-						nameSort->insert(district->getKey(), district->accessData());
+						nameSort->insert(district->getKey(), nameCriteria->rate(district->accessData(), L""));
 					}
 				}
 			}
 			if ((filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined) && filterAdherence->meetsFilter(region->accessData(), adherenceCriteria, false) && !undefined && (region->accessData()->getHGU()->getName() == selectionAdherence || selectionAdherence == L""))
 			{
-				nameSort->insert(region->getKey(), region->accessData());
+				nameSort->insert(region->getKey(), nameCriteria->rate(region->accessData(), L""));
 			} 
 		}
-		for (TableItem<wstring, GroundUnit*>* groundUnit : *nameSort)
+
+		sortName->sort(*nameSort, asc);
+
+		for (TableItem<wstring, wstring>* groundUnit : *nameSort)
 		{
-			wcout << groundUnit->getKey() << " : " << groundUnit->accessData()->getName() << endl;
+			wcout << groundUnit->getKey() << " : " << groundUnit->accessData() << endl;
 		}
+
 		break;
+
 	case POPULATIONCOUNT:
-		populationCriteria = new CriteriaGUPopulationCount();
-		populationSort = new UnsortedSequenceTable<wstring, int>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -497,16 +624,17 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 				populationSort->insert(region->getKey(), populationCriteria->rate(region->accessData(), L""));
 			}
 		}
-		sortPopulation = new QuickSort<wstring, int>();
+		
 		sortPopulation->sort(*populationSort, asc);
 		for (TableItem<wstring, int>* groundUnit : *populationSort)
 		{
 			wcout << groundUnit->getKey() << ": " << groundUnit->accessData() << endl;
 		}
+
 		break;
+
 	case BUILDEDUP:
-		buildedUpCriteria = new CriteriaGUBuildedUp();
-		buildedUpSort = new UnsortedSequenceTable<wstring, double>();
+
 		for (TableItem<wstring, GroundUnit*>* region : *country->getLGU())
 		{
 			if (!filterType->meetsFilter(region->accessData(), typeGU, undefined) || undefined)
@@ -534,16 +662,63 @@ inline void UserInterface::operation4(CriteriaType type, GroundUnitType typeGU, 
 				buildedUpSort->insert(region->getKey(), buildedUpCriteria->rate(region->accessData(), L""));
 			}
 		}
-		sortBuildedUp = new QuickSort<wstring, double>();
+		
 		sortBuildedUp->sort(*buildedUpSort, asc);
 		for (TableItem<wstring, double>* groundUnit : *buildedUpSort)
 		{
 			wcout << groundUnit->getKey() << ": " << groundUnit->accessData() << endl;
 		}
-		break;
-	default:
+
 		break;
 	}
+
+	/*for (TableItem<wstring, GroundUnit*>* groundUnit : *nameSort)
+	{
+		if (groundUnit->accessData() != nullptr)
+		{
+			delete groundUnit->accessData();
+			groundUnit = nullptr;
+		}
+	}
+
+	for (TableItem<wstring, int>* groundUnit : *populationSort)
+	{
+		if (groundUnit != nullptr)
+		{
+			delete groundUnit;
+			groundUnit = nullptr;
+		}
+	}
+
+	for (TableItem<wstring, double>* groundUnit : *buildedUpSort)
+	{
+		if (groundUnit != nullptr)
+		{
+			delete groundUnit;
+			groundUnit = nullptr;
+		}
+	}*/
+
+	delete populationCriteria;
+	populationCriteria = nullptr;
+	delete populationSort;
+	populationSort = nullptr;
+	delete buildedUpCriteria;
+	buildedUpCriteria = nullptr;
+	delete buildedUpSort;
+	buildedUpSort = nullptr;
+	delete nameSort;
+	nameSort = nullptr;
+	delete filterType;
+	filterType = nullptr;
+	delete filterAdherence;
+	filterAdherence = nullptr;
+	delete adherenceCriteria;
+	adherenceCriteria = nullptr;
+	delete sortPopulation;
+	sortPopulation = nullptr;
+	delete sortBuildedUp;
+	sortBuildedUp = nullptr;
 }
 
 inline void UserInterface::operationSelect()
@@ -576,6 +751,7 @@ inline void UserInterface::operationSelect()
 			operation1(FILTERNAME);
 			rerun(true);
 			break;
+
 		case 2:
 			populationOp = 0;
 			wcout << L"Zadaj najnižší poèet obyvate¾ov / Enter lowest population count: ";
@@ -587,6 +763,7 @@ inline void UserInterface::operationSelect()
 			operation1(FILTERPOPULATION);
 			rerun(false);
 			break;
+
 		case 3:
 			buildedUpOp = 0.0;
 			wcout << L"Zadaj najnižšiu zastavanos / Enter lowest builded up percentage: ";
@@ -602,6 +779,7 @@ inline void UserInterface::operationSelect()
 			break;
 		}
 		break;
+
 	case 2:
 		selectionOp = 0;
 		selectionDir = 0;
@@ -643,19 +821,26 @@ inline void UserInterface::operationSelect()
 		case 1:
 			operation2(CriteriaType::NAME, ascending);
 			rerun(false);
+
 			break;
+
 		case 2:
 			operation2(CriteriaType::POPULATIONCOUNT, ascending);
 			rerun(false);
+
 			break;
+
 		case 3:
 			operation2(CriteriaType::BUILDEDUP, ascending);
 			rerun(false);
+
 			break;
+
 		default:
 			break;
 		}
 		break;
+
 	case 3:
 		selectionOp = 0;
 		selectionType = 0;
@@ -707,7 +892,9 @@ inline void UserInterface::operationSelect()
 			wcout << endl;
 			operation3(FILTERNAME, static_cast<GroundUnitType>(selectionType - 1));
 			rerun(true);
+
 			break;
+
 		case 2:
 			populationOp = 0;
 			wcout << L"Zadaj najnižší poèet obyvate¾ov / Enter lowest population count: ";
@@ -718,7 +905,9 @@ inline void UserInterface::operationSelect()
 			wcout << endl;
 			operation3(FILTERPOPULATION, static_cast<GroundUnitType>(selectionType - 1));
 			rerun(false);
+
 			break;
+
 		case 3:
 			buildedUpOp = 0.0;
 			wcout << L"Zadaj najnižšiu zastavanos / Enter lowest builded up percentage: ";
@@ -729,10 +918,13 @@ inline void UserInterface::operationSelect()
 			wcout << endl;
 			operation3(FILTERBUILDEDUP, static_cast<GroundUnitType>(selectionType - 1));
 			rerun(false);
+
 			break;
+
 		default:
 			break;
 		}
+
 	case 4:
 		selectionOp = 0;
 		selectionType = 0;
@@ -798,19 +990,26 @@ inline void UserInterface::operationSelect()
 		case 1:
 			operation4(CriteriaType::NAME, static_cast<GroundUnitType>(selectionType - 1), ascending);
 			rerun(true);
+
 			break;
+
 		case 2:
 			operation4(CriteriaType::POPULATIONCOUNT, static_cast<GroundUnitType>(selectionType - 1), ascending);
 			rerun(true);
+
 			break;
+
 		case 3:
 			operation4(CriteriaType::BUILDEDUP, static_cast<GroundUnitType>(selectionType - 1), ascending);
 			rerun(true);
+
 			break;
+
 		default:
 			break;
 		}
 		break;
+
 	case 5:
 
 		break;
@@ -821,11 +1020,15 @@ inline void UserInterface::operationSelect()
 
 		break;
 	case 8:
+
 		break;
 	case 9:
+
 		break;
 	case 0:
+
 		exit(0);
+
 		break;
 	default:
 		break;

@@ -224,7 +224,10 @@ namespace structures
 	{
 		for (auto tableItem: *this)
 		{
-			delete tableItem;
+			if (tableItem != nullptr)
+			{
+				delete tableItem;
+			}
 		}
 		list_->clear();
 	}
